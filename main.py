@@ -5,7 +5,7 @@ import os
 import glob
 import subprocess
 
-# ====== Step 0: Auto-convert MOV to MP4 if needed ======
+#Step 0: Auto-convert MOV to MP4 if needed
 def ensure_mp4(video_path):
     if video_path.lower().endswith(".mov"):
         mp4_path = video_path.rsplit(".", 1)[0] + ".mp4"
@@ -20,7 +20,7 @@ def ensure_mp4(video_path):
     return video_path
 
 
-# ====== Step 1: Load calibration results ======
+#Step 1: Load calibration results
 camera_matrix = np.array([
     [3.38821744e+03, 0.00000000e+00, 9.01478839e+02],
     [0.00000000e+00, 3.35612041e+03, 5.95209942e+02],
@@ -30,7 +30,7 @@ camera_matrix = np.array([
 dist_coeffs = np.array([1.37363472, -68.4275187, 0.0146233947, 0.0668579741, 1366.46007], dtype=np.float32)
 
 
-# ====== Step 2: Extract frames from video ======
+#Step 2: Extract frames from video
 def extract_frames(video_path, output_dir="data/frames", step=30, max_frames=10, target_w=1280):
     os.makedirs(output_dir, exist_ok=True)
     cap = cv2.VideoCapture(video_path)
@@ -58,7 +58,7 @@ def extract_frames(video_path, output_dir="data/frames", step=30, max_frames=10,
 
 
 
-# ====== Step 3: Run solvePnP for one image ======
+# Step 3: Run solvePnP for one image 
 def run_solvepnp(model_3d_csv, image_2d_csv, frame_img_path, out_dir="outputs"):
     os.makedirs(out_dir, exist_ok=True)
     model = pd.read_csv(model_3d_csv)
@@ -98,7 +98,7 @@ def run_solvepnp(model_3d_csv, image_2d_csv, frame_img_path, out_dir="outputs"):
     return err
 
 
-# ====== Step 4: Main interface ======
+#Step 4: Main interface
 def main():
     print("Select mode:")
     print("1) Extract 10 frames from video")
